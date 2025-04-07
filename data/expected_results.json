@@ -1,0 +1,17 @@
+{
+    "valid_products": {
+        "total": 3,
+        "success_count": 3,
+        "error_count": 0
+    },
+    "invalid_products": {
+        "total": 3,
+        "success_count": 0,
+        "error_count": 3,
+        "expected_errors": [
+            "Invalid price in row 0",
+            "Missing name in row 1",
+            "Invalid price in row 2"
+        ]
+    }
+}
