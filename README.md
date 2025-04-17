@@ -59,7 +59,7 @@ sinaidori-shopic_internship_home_assignment/
 
 3. View test reports:
    The HTML report will be generated in the `reports` directory.
-   You can also view it with the command 'open reports/report.html' in the terminal. 
+   You can also view it with the command `open reports/report.html` in the terminal. 
 
 ## Implementation Details
 
