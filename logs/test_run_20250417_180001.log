@@ -1,0 +1,54 @@
+2025-04-17 18:00:01,691 - tests.conftest - INFO - Configured HTML report generation
+2025-04-17 18:00:01,751 - utils.test_utils - INFO - Loading expected results from data/expected_results.json
+2025-04-17 18:00:01,752 - utils.test_utils - INFO - Expected results loaded successfully
+2025-04-17 18:00:01,767 - tests.conftest - INFO - Starting server
+2025-04-17 18:00:07,134 - tests.conftest - INFO - Server verification attempt 1/5
+2025-04-17 18:00:07,145 - tests.conftest - INFO - Server started and verified
+2025-04-17 18:00:07,146 - tests.conftest - INFO - Starting browser context
+2025-04-17 18:00:19,463 - tests.conftest - INFO - Browser context started
+2025-04-17 18:00:19,469 - tests.conftest - INFO - Creating new page
+2025-04-17 18:00:19,945 - tests.test_product_upload - INFO - Starting test_page_loads
+2025-04-17 18:00:19,945 - pages.upload_page - INFO - Navigating to http://localhost:8000
+2025-04-17 18:00:20,006 - pages.upload_page - INFO - Checking if page is loaded
+2025-04-17 18:00:20,018 - tests.test_product_upload - INFO - test_page_loads completed successfully
+2025-04-17 18:00:20,019 - tests.conftest - INFO - Closing page
+2025-04-17 18:00:20,038 - tests.conftest - INFO - Creating new page
+2025-04-17 18:00:20,132 - tests.test_product_upload - INFO - Starting test_valid_product_upload
+2025-04-17 18:00:20,132 - pages.upload_page - INFO - Navigating to http://localhost:8000
+2025-04-17 18:00:20,180 - pages.upload_page - INFO - Uploading file: /Users/sinaydori/Documents/Shopic_Internship_Home_Assignment/data/valid_products.csv
+2025-04-17 18:00:20,280 - pages.upload_page - INFO - Waiting for results to appear
+2025-04-17 18:00:20,318 - pages.upload_page - INFO - Getting results from the page
+2025-04-17 18:00:20,325 - pages.upload_page - INFO - Parsed results: {'status': 'success', 'data': [{'id': 1, 'name': 'Laptop', 'price': 999.99, 'category': 'Electronics', 'stock': 50}, {'id': 2, 'name': 'Headphones', 'price': 89.99, 'category': 'Electronics', 'stock': 100}, {'id': 3, 'name': 'Mouse', 'price': 29.99, 'category': 'Electronics', 'stock': 200}]}
+2025-04-17 18:00:20,325 - tests.test_product_upload - INFO - test_valid_product_upload completed successfully
+2025-04-17 18:00:20,326 - tests.conftest - INFO - Closing page
+2025-04-17 18:00:20,345 - tests.conftest - INFO - Creating new page
+2025-04-17 18:00:20,441 - tests.test_product_upload - INFO - Starting test_invalid_product_upload
+2025-04-17 18:00:20,441 - pages.upload_page - INFO - Navigating to http://localhost:8000
+2025-04-17 18:00:20,485 - pages.upload_page - INFO - Uploading file: /Users/sinaydori/Documents/Shopic_Internship_Home_Assignment/data/invalid_products.csv
+2025-04-17 18:00:20,539 - pages.upload_page - INFO - Waiting for results to appear
+2025-04-17 18:00:20,553 - pages.upload_page - INFO - Getting results from the page
+2025-04-17 18:00:20,558 - pages.upload_page - INFO - Parsed results: {'status': 'error', 'errors': ['Invalid price in row 0', 'Missing name in row 1', 'Invalid price in row 2']}
+2025-04-17 18:00:20,559 - tests.test_product_upload - INFO - test_invalid_product_upload completed successfully
+2025-04-17 18:00:20,559 - tests.conftest - INFO - Closing page
+2025-04-17 18:00:20,578 - tests.conftest - INFO - Creating new page
+2025-04-17 18:00:20,670 - tests.test_product_upload - INFO - Starting test_empty_file_upload
+2025-04-17 18:00:20,671 - pages.upload_page - INFO - Navigating to http://localhost:8000
+2025-04-17 18:00:20,716 - pages.upload_page - INFO - Uploading file: /Users/sinaydori/Documents/Shopic_Internship_Home_Assignment/data/empty_products.csv
+2025-04-17 18:00:20,772 - pages.upload_page - INFO - Waiting for results to appear
+2025-04-17 18:00:20,784 - pages.upload_page - INFO - Getting results from the page
+2025-04-17 18:00:20,790 - pages.upload_page - INFO - Parsed results: {'status': 'success', 'data': []}
+2025-04-17 18:00:20,790 - tests.test_product_upload - INFO - test_empty_file_upload completed successfully
+2025-04-17 18:00:20,791 - tests.conftest - INFO - Closing page
+2025-04-17 18:00:20,811 - tests.conftest - INFO - Creating new page
+2025-04-17 18:00:20,905 - tests.test_product_upload - INFO - Starting test_malformed_csv_upload
+2025-04-17 18:00:20,906 - pages.upload_page - INFO - Navigating to http://localhost:8000
+2025-04-17 18:00:20,951 - pages.upload_page - INFO - Uploading file: /Users/sinaydori/Documents/Shopic_Internship_Home_Assignment/data/malformed_products.csv
+2025-04-17 18:00:21,005 - pages.upload_page - INFO - Waiting for results to appear
+2025-04-17 18:00:21,017 - pages.upload_page - INFO - Getting results from the page
+2025-04-17 18:00:21,023 - pages.upload_page - INFO - Parsed results: {'status': 'error', 'errors': ['Invalid price in row 1']}
+2025-04-17 18:00:21,023 - tests.test_product_upload - INFO - test_malformed_csv_upload completed successfully
+2025-04-17 18:00:21,024 - tests.conftest - INFO - Closing page
+2025-04-17 18:00:21,043 - tests.conftest - INFO - Closing browser
+2025-04-17 18:00:21,079 - tests.conftest - INFO - Browser closed
+2025-04-17 18:00:21,086 - tests.conftest - INFO - Stopping server
+2025-04-17 18:00:21,358 - tests.conftest - INFO - Server stopped

@@ -17,6 +17,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 @app.get("/")
 async def upload_form():
     return HTMLResponse("""
@@ -27,12 +28,12 @@ async def upload_form():
                 async function handleSubmit(event) {
                     event.preventDefault();
                     const formData = new FormData(event.target);
-                    
+
                     const response = await fetch('/upload', {
                         method: 'POST',
                         body: formData
                     });
-                    
+
                     const result = await response.json();
                     document.getElementById('results').innerText = JSON.stringify(result, null, 2);
                 }
@@ -48,23 +49,52 @@ async def upload_form():
         </html>
     """)
 
+
+# @app.post("/upload")
+# async def upload_file(file: UploadFile = File(...)):
+#     try:
+#         contents = await file.read()
+#         df = pd.read_csv(io.StringIO(contents.decode('utf-8')))
+
+#         # Validate data
+#         errors = []
+#         for index, row in df.iterrows():
+#             if pd.isna(row['name']):
+#                 errors.append(f"Missing name in row {index}")
+#             if not isinstance(row['price'], (int, float)) or row['price'] < 0:
+#                 errors.append(f"Invalid price in row {index}")
+
+#         if errors:
+#             return {"status": "error", "errors": errors}
+
+#         return {
+#             "status": "success",
+#             "data": df.to_dict('records')
+#         }
+#     except Exception as e:
+#         return {"status": "error", "message": str(e)}
+
 @app.post("/upload")
 async def upload_file(file: UploadFile = File(...)):
     try:
         contents = await file.read()
         df = pd.read_csv(io.StringIO(contents.decode('utf-8')))
-        
+
+        # --- NEW LINE ---
+        df["price"] = pd.to_numeric(df["price"], errors="coerce")
+
         # Validate data
         errors = []
         for index, row in df.iterrows():
+            print(row)
             if pd.isna(row['name']):
                 errors.append(f"Missing name in row {index}")
-            if not isinstance(row['price'], (int, float)) or row['price'] < 0:
+            if pd.isna(row['price']) or row['price'] < 0:
                 errors.append(f"Invalid price in row {index}")
-            
+
         if errors:
             return {"status": "error", "errors": errors}
-            
+
         return {
             "status": "success",
             "data": df.to_dict('records')

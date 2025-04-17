@@ -52,6 +52,35 @@ def event_loop():
     loop.close()
 
 
+# @pytest.fixture(scope="session")
+# async def server():
+#     """
+#     Start the FastAPI server for testing and stop it when tests are complete.
+
+#     Yields:
+#         subprocess.Popen: The server process
+#     """
+#     logger.info("Starting server")
+
+#     # Start the FastAPI server - Updated to use server.app:app
+#     server_process = subprocess.Popen(
+#         ["uvicorn", "server.app:app", "--host", "0.0.0.0", "--port", "8000"],
+#         stdout=subprocess.PIPE,
+#         stderr=subprocess.PIPE
+#     )
+
+#     # Give the server time to start
+#     time.sleep(2)
+#     logger.info("Server started")
+
+#     yield server_process
+
+#     # Stop the server
+#     logger.info("Stopping server")
+#     server_process.terminate()
+#     server_process.wait()
+#     logger.info("Server stopped")
+
 @pytest.fixture(scope="session")
 async def server():
     """
@@ -62,17 +91,52 @@ async def server():
     """
     logger.info("Starting server")
 
-    # Start the FastAPI server - Updated to use server.app:app
+    # Start the FastAPI server
     server_process = subprocess.Popen(
-        ["uvicorn", "server.app:app", "--host", "0.0.0.0", "--port", "8000"],
+        ["uvicorn", "server.app:app", "--host", "localhost", "--port", "8000"],
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE
     )
 
     # Give the server time to start
-    time.sleep(2)
-    logger.info("Server started")
+    time.sleep(5)
 
+    # Verify server is running
+    # Verify server is running with retries
+    # Verify server is running
+    import requests
+
+    max_retries = 5
+    verified = False
+
+    for attempt in range(max_retries):
+        try:
+            logger.info(
+                f"Server verification attempt {attempt + 1}/{max_retries}")
+            response = requests.get("http://localhost:8000")
+            if response.status_code == 200:
+                logger.info("Server started and verified")
+                verified = True
+                break
+            else:
+                logger.warning(
+                    f"Server response: {response.status_code}, retrying in {retry_delay} seconds...")
+        except Exception as e:
+            logger.warning(
+                f"Server verification attempt {attempt + 1} failed: {str(e)}, retrying in {retry_delay} seconds...")
+
+        # Only sleep if we have more retries to go
+        if attempt < max_retries - 1:
+            time.sleep(retry_delay)
+
+    if not verified:
+        logger.error("Server verification failed after maximum retries")
+        # Capture server output for debugging
+        stdout, stderr = server_process.communicate(timeout=5)
+        logger.error(f"Server stdout: {stdout.decode('utf-8')}")
+        logger.error(f"Server stderr: {stderr.decode('utf-8')}")
+        server_process.terminate()
+        raise Exception("Server failed to start after multiple attempts")
     yield server_process
 
     # Stop the server
@@ -119,7 +183,7 @@ async def page(browser_context):
     await page.close()
 
 
-@pytest.fixture
+@pytest.fixture(scope="session")
 def base_url():
     """
     Provide the base URL for the application.
@@ -128,3 +192,14 @@ def base_url():
         str: The base URL
     """
     return "http://localhost:8000"
+
+
+@pytest.fixture(scope="session")
+def anyio_backend():
+    """Override anyio backend fixture to work with session scope."""
+    return "asyncio"
+
+
+# Customize the report title
+def pytest_html_report_title(report):
+    report.title = "Test execution report"

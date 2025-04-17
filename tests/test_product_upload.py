@@ -15,7 +15,7 @@ logger = logging.getLogger(__name__)
 expected_results = load_expected_results()
 
 
-@pytest.mark.asyncio
+@pytest.mark.anyio
 async def test_page_loads(page, base_url, server):
     """
     Test that the upload page loads correctly.
@@ -40,7 +40,7 @@ async def test_page_loads(page, base_url, server):
     logger.info("test_page_loads completed successfully")
 
 
-@pytest.mark.asyncio
+@pytest.mark.anyio
 async def test_valid_product_upload(page, base_url, server):
     """
     Test uploading a valid products CSV file.
@@ -74,7 +74,7 @@ async def test_valid_product_upload(page, base_url, server):
     logger.info("test_valid_product_upload completed successfully")
 
 
-@pytest.mark.asyncio
+@pytest.mark.anyio
 async def test_invalid_product_upload(page, base_url, server):
     """
     Test uploading an invalid products CSV file.
@@ -112,7 +112,7 @@ async def test_invalid_product_upload(page, base_url, server):
     logger.info("test_invalid_product_upload completed successfully")
 
 
-@pytest.mark.asyncio
+@pytest.mark.anyio
 async def test_empty_file_upload(page, base_url, server):
     """
     Test uploading an empty CSV file (edge case).
@@ -153,7 +153,7 @@ async def test_empty_file_upload(page, base_url, server):
     logger.info("test_empty_file_upload completed successfully")
 
 
-@pytest.mark.asyncio
+@pytest.mark.anyio
 async def test_malformed_csv_upload(page, base_url, server):
     """
     Test uploading a malformed CSV file (edge case).
